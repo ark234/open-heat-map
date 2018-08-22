@@ -5,6 +5,8 @@ const dotenv = require('dotenv').config();
 const path = require('path');
 const mongoose = require('mongoose');
 
+const heatController = require('./controllers/HeatController');
+
 // Create connection to Mongo DB via Mongoose
 mongoose.connect(process.env.DB_URI);
 mongoose.connection.once('open', () => console.log('Hello from ohm-db'));
@@ -13,6 +15,9 @@ mongoose.Promise = global.Promise;
 // Configure Express Application Server
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// Set up heat router
+const heatRouter = express.Router();
 
 // Set up directory for static resource
 app.use(express.static('dist'));
@@ -26,11 +31,15 @@ app.use(bodyParser.json());
 
 // Setup dummy route
 app.get('/api/getFoo', (req, res) => {
-  res.json({ foo: 'bar' });
+  res.status(200).json({ foo: 'bar' });
 });
 
-// Set up heat router
-// const heatRouter = require('./controllers/heat.js');
+// get heat route
+// heatRouter.get('/:zip/:radius', heatController.getZipCodesInRadius, heatController.getTemperatures);
+heatRouter.get('/:lat/:lon', heatController.getNearbyStations, heatController.saveToDb);
+
+// Connect heat router middleware to express routes
+app.use('/api/heat', heatRouter);
 
 // Set up error handling middleware
 app.use((err, req, res, next) => {
