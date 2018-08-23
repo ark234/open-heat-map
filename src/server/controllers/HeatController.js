@@ -33,8 +33,15 @@ const HeatController = {
   saveToDb(req, res) {
     Heat.insertMany(res.locals.models)
       .then(docs => {
-        console.log('insert success! docs ===>', docs);
-        res.json(docs);
+        const flatDocs = docs.map(doc => {
+          return {
+            latitude: doc.latitude,
+            longitude: doc.longitude,
+            temperature: doc.temperature
+          };
+        });
+        console.log('insert success! docs ===>', flatDocs);
+        res.json(flatDocs);
       })
       .catch(err => {
         console.error('Error in HeatController.saveToDb() ===>', err);
