@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv').config();
 const path = require('path');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const heatController = require('./controllers/HeatController');
 
@@ -29,8 +30,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Enable cors
+app.use(cors());
+
 app.get('/', (req, res) => {
-  res.redirect('google.com');
+  res.redirect('http://open-heat-map.surge.sh/');
 });
 
 // get heat route
