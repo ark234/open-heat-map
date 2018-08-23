@@ -29,7 +29,8 @@
     "google-map-react": "^1.0.6",
     "mongoose": "^5.2.9",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "surge": "^0.20.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

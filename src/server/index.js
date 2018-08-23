@@ -29,9 +29,8 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Setup dummy route
-app.get('/api/getFoo', (req, res) => {
-  res.status(200).json({ foo: 'bar' });
+app.get('/', (req, res) => {
+  res.redirect('google.com');
 });
 
 // get heat route

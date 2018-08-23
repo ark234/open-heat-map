@@ -13,7 +13,7 @@ export default class App extends Component {
   }
 
   getStationData(lat, lon) {
-    fetch(`/api/heat/${lat}/${lon}`)
+    fetch(`https://rocky-hamlet-69350.herokuapp.com/api/heat/${lat}/${lon}`)
       .then(res => res.json())
       .then(stations => {
         // console.log('stations ===>', stations);
